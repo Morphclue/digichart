@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {EditorComponent} from './editor/editor.component';
 import {TreeComponent} from './tree/tree.component';
-import {EditorRoutingModule} from "./editor-routing.module";
+import {EditorRoutingModule} from './editor-routing.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import {EditorRoutingModule} from "./editor-routing.module";
   imports: [
     CommonModule,
     EditorRoutingModule,
-  ]
+  ],
 })
 export class EditorModule {
 }
