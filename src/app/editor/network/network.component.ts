@@ -2,11 +2,11 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {Network} from 'vis-network';
 
 @Component({
-  selector: 'app-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
+  selector: 'app-network',
+  templateUrl: './network.component.html',
+  styleUrls: ['./network.component.scss'],
 })
-export class TreeComponent implements AfterViewInit {
+export class NetworkComponent implements AfterViewInit {
   @ViewChild('network') el: ElementRef | undefined;
   private network: Network | undefined;
 
@@ -26,7 +26,6 @@ export class TreeComponent implements AfterViewInit {
         {from: 1, to: 3},
       ],
     };
-    const options = {};
-    this.network = new Network(container, data, options);
+    this.network = new Network(container, data, {});
   }
 }
