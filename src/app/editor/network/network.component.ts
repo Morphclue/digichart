@@ -38,6 +38,13 @@ export class NetworkComponent implements AfterViewInit {
         {from: 8, to: 9},
       ],
     };
+
+    // TODO: load correct images for each node
+    for (const node of data.nodes) {
+      (node as any).shape = 'circularImage';
+      (node as any).image = 'todo.png';
+    }
+
     const options = {
       layout: {
         hierarchical: {
