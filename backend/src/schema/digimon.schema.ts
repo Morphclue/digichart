@@ -3,7 +3,7 @@ import {Types} from 'mongoose';
 
 @Schema()
 export class Digimon {
-  @Prop()
+  @Prop({unique: true})
   name: string;
 
   @Prop()
