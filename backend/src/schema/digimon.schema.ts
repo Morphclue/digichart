@@ -1,20 +1,21 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {Types} from 'mongoose';
 
 @Schema()
 export class Digimon {
-  @Prop({unique: true})
+  @Prop()
+  id: number;
+
+  @Prop()
   name: string;
 
   @Prop()
-  level: string;
+  levels: string[];
 
   @Prop()
-  img: string;
+  href: string;
 
-  // TODO: use mean-stream/nestx to create a reference to Digimon
-  @Prop({type: [{type: Types.ObjectId, ref: 'Digimon'}]})
-  evolvesTo: Types.ObjectId[];
+  @Prop()
+  nextEvolutions: number[];
 }
 
 export const DigimonSchema = SchemaFactory.createForClass(Digimon);
