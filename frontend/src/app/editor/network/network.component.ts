@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {Network} from 'vis-network';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-network',
@@ -10,48 +11,33 @@ export class NetworkComponent implements AfterViewInit {
   @ViewChild('network') el: ElementRef | undefined;
   private network: Network | undefined;
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   ngAfterViewInit(): void {
     const container = this.el?.nativeElement;
-    const data = {
-      nodes: [
-        {id: 1, label: 'Botamon'},
-        {id: 2, label: 'Koromon'},
-        {id: 3, label: 'Agumon'},
-        {id: 4, label: 'Greymon'},
-        {id: 5, label: 'MetalGreymon'},
-        {id: 6, label: 'WarGreymon'},
-        {id: 7, label: 'SkullGreymon'},
-        {id: 8, label: 'Tyrannomon'},
-        {id: 9, label: 'MasterTyrannomon'},
-      ],
-      edges: [
-        {from: 1, to: 2},
-        {from: 2, to: 3},
-        {from: 3, to: 4},
-        {from: 3, to: 8},
-        {from: 4, to: 5},
-        {from: 5, to: 6},
-        {from: 4, to: 7},
-        {from: 8, to: 9},
-      ],
-    };
+    const id = 797; // Jijimon
+    this.http.get<any>(`http://localhost:3000/api/v1/${id}`).subscribe(
+      (data) => {
+        for (const node of data.nodes) {
+          // FIXME: only after selection
+          if (node.id === id) {
+            (node as any).color = '#ff0000';
+          }
+          (node as any).shape = 'circularImage';
+        }
 
-    // TODO: load correct images for each node
-    for (const node of data.nodes) {
-      (node as any).shape = 'circularImage';
-      (node as any).image = 'todo.png';
-    }
-
-    const options = {
-      layout: {
-        hierarchical: {
-          direction: 'LR',
-        },
-      },
-    };
-    this.network = new Network(container, data, options);
+        const options = {
+          layout: {
+            hierarchical: {
+              // TODO  direction: 'LR',
+            },
+          },
+          physics: {
+            enabled: false,
+          },
+        };
+        this.network = new Network(container, data, options);
+      });
   }
 }

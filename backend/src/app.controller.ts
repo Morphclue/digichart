@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {BadRequestException, Body, Controller, Get, Param, Post} from '@nestjs/common';
 
 import {AppService} from './app.service';
 import {DigimonDto} from './dto/digimon.dto';
@@ -14,9 +14,13 @@ export class AppController {
     return this.appService.getAllDigimon();
   }
 
+  @Get(':id')
+  getTreeById(@Param('id') id: number) {
+    return this.appService.getTreeById(id);
+  }
+
   @Post()
   addDigimon(@Body() digimonDto: DigimonDto) {
-    console.log("Request with: " + digimonDto.name);
     return this.appService.addDigimon(digimonDto);
   }
 }

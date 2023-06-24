@@ -15,6 +15,9 @@ export class Digimon {
   href: string;
 
   @Prop()
+  priorEvolutions: number[];
+
+  @Prop()
   nextEvolutions: number[];
 }
 

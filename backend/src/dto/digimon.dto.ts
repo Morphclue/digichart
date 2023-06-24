@@ -1,4 +1,4 @@
-import {IsNumber, IsString} from 'class-validator';
+import {IsArray, IsNumber, IsString} from 'class-validator';
 
 export class DigimonDto {
   @IsNumber()
@@ -12,6 +12,9 @@ export class DigimonDto {
 
   @IsString()
   href: string;
+
+  @IsNumber({}, {each: true})
+  priorEvolutions: number[];
 
   @IsNumber({}, {each: true})
   nextEvolutions: number[];
