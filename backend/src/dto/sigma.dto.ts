@@ -1,7 +1,7 @@
 interface SigmaNode {
   id: number;
   label: string;
-  // image: string;
+  href: string;
 }
 
 interface SigmaEdge {

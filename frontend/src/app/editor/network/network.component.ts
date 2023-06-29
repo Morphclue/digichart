@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 
 import Graph from 'graphology';
 import {Sigma} from 'sigma';
+import FA2LayoutSupervisor from "graphology-layout-forceatlas2/worker";
+import getNodeImageProgram from 'sigma/rendering/webgl/programs/node.image';
 
 @Component({
   selector: 'app-network',
@@ -12,6 +14,7 @@ import {Sigma} from 'sigma';
 export class NetworkComponent implements AfterViewInit, OnDestroy {
   @ViewChild('network') network: ElementRef | null = null;
   sigma?: Sigma;
+  fa2?: FA2LayoutSupervisor;
 
   constructor(private http: HttpClient) {
   }
@@ -25,6 +28,8 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
           node.y = Math.random() * 20;
           node.size = 10;
           node.color = '#008cc2';
+          node.type = 'image';
+          // FIXME: node.image = node.href;
         });
         data.edges.forEach((edge: any) => {
           edge.color = '#282c34';
@@ -36,9 +41,9 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.sigma) {
-      this.sigma.kill();
-    }
+    this.sigma?.kill();
+    this.fa2?.stop();
+    this.fa2?.kill();
   }
 
   private drawGraph(data: any) {
@@ -47,8 +52,25 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
     data.edges.forEach((edge: any) => {
       graph.addEdge(edge.source, edge.target, {...edge});
     });
+    this.fa2 = new FA2LayoutSupervisor(graph, {
+      settings: {
+        linLogMode: true,
+        outboundAttractionDistribution: true,
+        adjustSizes: true,
+        gravity: 1,
+        slowDown: 1 + Math.log(graph.order) / 10,
+        barnesHutOptimize: true,
+        barnesHutTheta: 0.6,
+      },
+    });
+    this.fa2.start();
     if (this.network) {
-      this.sigma = new Sigma(graph, this.network.nativeElement);
+      this.sigma = new Sigma(graph, this.network.nativeElement, {
+        nodeProgramClasses: {
+          image: getNodeImageProgram(),
+        },
+      });
+      this.sigma.refresh();
     }
   }
 }

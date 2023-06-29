@@ -32,6 +32,9 @@ dependencies:
   graphology:
     specifier: ^0.25.1
     version: 0.25.1(graphology-types@0.24.7)
+  graphology-layout-forceatlas2:
+    specifier: ^0.10.1
+    version: 0.10.1(graphology-types@0.24.7)
   rxjs:
     specifier: ~6.6.7
     version: 6.6.7
@@ -5484,6 +5487,15 @@ packages:
   /grapheme-splitter@1.0.4:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: true
+
+  /graphology-layout-forceatlas2@0.10.1(graphology-types@0.24.7):
+    resolution: {integrity: sha512-ogzBeF1FvWzjkikrIFwxhlZXvD2+wlY54lqhsrWprcdPjopM2J9HoMweUmIgwaTvY4bUYVimpSsOdvDv1gPRFQ==}
+    peerDependencies:
+      graphology-types: '>=0.19.0'
+    dependencies:
+      graphology-types: 0.24.7
+      graphology-utils: 2.5.2(graphology-types@0.24.7)
+    dev: false
 
   /graphology-types@0.24.7:
     resolution: {integrity: sha512-tdcqOOpwArNjEr0gNQKCXwaNCWnQJrog14nJNQPeemcLnXQUUGrsCWpWkVKt46zLjcS6/KGoayeJfHHyPDlvwA==}

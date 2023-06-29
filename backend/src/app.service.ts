@@ -44,8 +44,7 @@ export class AppService {
         this.logger.warn(`Digimon with id ${currentId} not found`);
         continue;
       }
-      // FIXME: add current.href
-      nodes.push({id: current.id, label: current.name});
+      nodes.push({id: current.id, label: current.name, href: current.href});
       current.nextEvolutions.forEach(nextId => {
         if (!visited.has(nextId)) {
           const next = digimonList.find(digimon => digimon.id === nextId);
