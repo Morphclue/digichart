@@ -1,43 +1,59 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {Network} from 'vis-network';
+import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+
+import Graph from 'graphology';
+import {Sigma} from 'sigma';
+import erdosRenyi from "graphology-generators/random/erdos-renyi";
+import circularLayout from "graphology-layout/circular";
 
 @Component({
   selector: 'app-network',
   templateUrl: './network.component.html',
   styleUrls: ['./network.component.scss'],
 })
-export class NetworkComponent implements AfterViewInit {
-  @ViewChild('network') el: ElementRef | undefined;
-  private network: Network | undefined;
+export class NetworkComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('network') network: ElementRef | null = null;
+  graph: Graph = new Graph();
+  sigma?: Sigma;
 
   constructor(private http: HttpClient) {
+    this.graph = erdosRenyi(Graph, {order: 100, probability: 0.1});
+    circularLayout.assign(this.graph);
   }
 
   ngAfterViewInit(): void {
-    const container = this.el?.nativeElement;
     const id = 797; // Jijimon
     this.http.get<any>(`http://localhost:3000/api/v1/${id}`).subscribe(
       (data) => {
-        for (const node of data.nodes) {
-          // FIXME: only after selection
-          if (node.id === id) {
-            (node as any).color = '#ff0000';
-          }
-          (node as any).shape = 'circularImage';
-        }
-
-        const options = {
-          layout: {
-            hierarchical: {
-              // TODO  direction: 'LR',
-            },
-          },
-          physics: {
-            enabled: false,
-          },
-        };
-        this.network = new Network(container, data, options);
+        data.nodes.forEach((node: any) => {
+          node.x = Math.random() * 20;
+          node.y = Math.random() * 20;
+          node.size = 10;
+          node.color = '#008cc2';
+        });
+        data.edges.forEach((edge: any) => {
+          edge.color = '#282c34';
+          edge.type = 'line';
+          edge.size = 0.1;
+        });
+        this.drawGraph(data);
       });
+  }
+
+  ngOnDestroy(): void {
+    if (this.sigma) {
+      this.sigma.kill();
+    }
+  }
+
+  private drawGraph(data: any) {
+    const graph = new Graph();
+    data.nodes.forEach((node: any) => graph.addNode(node.id, {...node}));
+    data.edges.forEach((edge: any) => {
+      graph.addEdge(edge.source, edge.target, {...edge});
+    });
+    if (this.network) {
+      this.sigma = new Sigma(graph, this.network.nativeElement);
+    }
   }
 }

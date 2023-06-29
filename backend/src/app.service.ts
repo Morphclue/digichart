@@ -7,7 +7,7 @@ import {Digimon} from './schema/digimon.schema';
 
 @Injectable()
 export class AppService {
-  private logger = new Logger(AppService.name);
+  private logger: Logger = new Logger(AppService.name);
 
   constructor(
     @InjectModel(Digimon.name) private digimonModel: Model<Digimon>,
@@ -29,9 +29,9 @@ export class AppService {
   }
 
   private async bfs(digimonList: Digimon[], root: Digimon) {
-    // FIXME: currently broken
-    const nodes: VisNode[] = [];
-    const edges: VisEdge[] = [];
+    const nodes: SigmaNode[] = [];
+    const edges: SigmaEdge[] = [];
+    let edgeId = 4200;
     const visited: Set<number> = new Set<number>();
     const queue: number[] = [];
     visited.add(root.id);
@@ -44,14 +44,15 @@ export class AppService {
         this.logger.warn(`Digimon with id ${currentId} not found`);
         continue;
       }
-      nodes.push({id: current.id, label: current.name, image: current.href});
+      // FIXME: add current.href
+      nodes.push({id: current.id, label: current.name});
       current.nextEvolutions.forEach(nextId => {
         if (!visited.has(nextId)) {
           const next = digimonList.find(digimon => digimon.id === nextId);
           if (next.priorEvolutions.includes(currentId)) {
             visited.add(nextId);
             queue.push(nextId);
-            edges.push({from: current.id, to: nextId});
+            edges.push({id: edgeId, source: current.id, target: nextId});
           }
         }
       });
