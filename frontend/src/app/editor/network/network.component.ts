@@ -3,8 +3,6 @@ import {HttpClient} from '@angular/common/http';
 
 import Graph from 'graphology';
 import {Sigma} from 'sigma';
-import erdosRenyi from "graphology-generators/random/erdos-renyi";
-import circularLayout from "graphology-layout/circular";
 
 @Component({
   selector: 'app-network',
@@ -13,12 +11,9 @@ import circularLayout from "graphology-layout/circular";
 })
 export class NetworkComponent implements AfterViewInit, OnDestroy {
   @ViewChild('network') network: ElementRef | null = null;
-  graph: Graph = new Graph();
   sigma?: Sigma;
 
   constructor(private http: HttpClient) {
-    this.graph = erdosRenyi(Graph, {order: 100, probability: 0.1});
-    circularLayout.assign(this.graph);
   }
 
   ngAfterViewInit(): void {
