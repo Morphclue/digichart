@@ -23,19 +23,7 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
     const id = 797; // Jijimon
     this.http.get<any>(`http://localhost:3000/api/v1/${id}`).subscribe(
       (data) => {
-        data.nodes.forEach((node: any) => {
-          node.x = Math.random() * 20;
-          node.y = Math.random() * 20;
-          node.size = 10;
-          node.color = '#008cc2';
-          node.type = 'image';
-          // FIXME: node.image = node.href;
-        });
-        data.edges.forEach((edge: any) => {
-          edge.color = '#282c34';
-          edge.type = 'line';
-          edge.size = 0.1;
-        });
+        this.transformData(data);
         this.drawGraph(data);
       });
   }
@@ -44,6 +32,22 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
     this.sigma?.kill();
     this.fa2?.stop();
     this.fa2?.kill();
+  }
+
+  private transformData(data: any) {
+    data.nodes.forEach((node: any) => {
+      node.x = Math.random() * 20;
+      node.y = Math.random() * 20;
+      node.size = 10;
+      node.color = '#008cc2';
+      node.type = 'image';
+      // FIXME: node.image = node.href;
+    });
+    data.edges.forEach((edge: any) => {
+      edge.color = '#282c34';
+      edge.type = 'line';
+      edge.size = 0.1;
+    });
   }
 
   private drawGraph(data: any) {
