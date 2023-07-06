@@ -1,11 +1,11 @@
 interface SigmaNode {
-  id: number;
+  id: string;
   label: string;
   href: string;
 }
 
 interface SigmaEdge {
   id: number;
-  source: number;
-  target: number;
+  source: string;
+  target: string;
 }

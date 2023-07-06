@@ -19,11 +19,12 @@ export class AppService {
   }
 
   async addDigimon(digimon: DigimonDto) {
+    console.log(`addDigimon: ${digimon.name}`);
     return new this.digimonModel(digimon).save();
   }
 
-  async getTreeById(id: number) {
-    const rootDigimon = await this.digimonModel.findOne({id: id}).exec();
+  async getTreeById(name: string) {
+    const rootDigimon = await this.digimonModel.findOne({name: name}).exec();
     const digimonList = await this.digimonModel.find().exec();
     return this.bfs(digimonList, rootDigimon);
   }
@@ -32,26 +33,30 @@ export class AppService {
     const nodes: SigmaNode[] = [];
     const edges: SigmaEdge[] = [];
     let edgeId = 4200;
-    const visited: Set<number> = new Set<number>();
-    const queue: number[] = [];
-    visited.add(root.id);
-    queue.push(root.id);
+    const visited: Set<string> = new Set<string>();
+    const queue: string[] = [];
+    visited.add(root.name);
+    queue.push(root.name);
 
     while (queue.length > 0) {
-      const currentId = queue.shift();
-      const current = digimonList.find(digimon => digimon.id === currentId);
+      const currentName = queue.shift();
+      const current = digimonList.find(digimon => digimon.name === currentName);
       if (!current) {
-        this.logger.warn(`Digimon with id ${currentId} not found`);
+        this.logger.warn(`Digimon with id ${currentName} not found`);
         continue;
       }
-      nodes.push({id: current.id, label: current.name, href: current.href});
-      current.nextEvolutions.forEach(nextId => {
-        if (!visited.has(nextId)) {
-          const next = digimonList.find(digimon => digimon.id === nextId);
-          if (next.priorEvolutions.includes(currentId)) {
-            visited.add(nextId);
-            queue.push(nextId);
-            edges.push({id: edgeId, source: current.id, target: nextId});
+      nodes.push({id: current.name, label: current.name, href: current.href});
+      current.nextEvolutions.forEach((nextName: string) => {
+        if (!visited.has(nextName)) {
+          const next = digimonList.find(digimon => digimon.name === nextName);
+          if(next === undefined) {
+            console.log(`Digimon ${nextName} not found`);
+            return;
+          }
+          if (next.priorEvolutions.includes(currentName)) {
+            visited.add(nextName);
+            queue.push(nextName);
+            edges.push({id: edgeId, source: current.name, target: nextName});
           }
         }
       });

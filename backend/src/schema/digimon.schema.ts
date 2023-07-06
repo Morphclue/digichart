@@ -2,23 +2,17 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 
 @Schema()
 export class Digimon {
-  @Prop()
-  id: number;
-
-  @Prop()
+  @Prop({unique: true})
   name: string;
-
-  @Prop()
-  levels: string[];
 
   @Prop()
   href: string;
 
   @Prop()
-  priorEvolutions: number[];
+  priorEvolutions: string[];
 
   @Prop()
-  nextEvolutions: number[];
+  nextEvolutions: string[];
 }
 
 export const DigimonSchema = SchemaFactory.createForClass(Digimon);

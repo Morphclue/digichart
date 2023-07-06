@@ -20,8 +20,7 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const id = 797; // Jijimon
-    this.http.get<any>(`http://localhost:3000/api/v1/${id}`).subscribe(
+    this.http.get<any>(`http://localhost:3000/api/v1/Siriusmon`).subscribe(
       (data) => {
         this.transformData(data);
         this.drawGraph(data);
@@ -41,7 +40,7 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
       node.size = 10;
       node.color = '#008cc2';
       node.type = 'image';
-      // FIXME: node.image = node.href;
+      // node.image = node.href;
     });
     data.edges.forEach((edge: any) => {
       edge.color = '#282c34';
