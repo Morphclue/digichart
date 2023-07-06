@@ -20,7 +20,7 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.http.get<any>(`http://localhost:3000/api/v1/Siriusmon`).subscribe(
+    this.http.get<any>(`http://localhost:3000/api/v1/Tyranomon`).subscribe(
       (data) => {
         this.transformData(data);
         this.drawGraph(data);
@@ -35,8 +35,8 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
 
   private transformData(data: any) {
     data.nodes.forEach((node: any) => {
-      node.x = Math.random() * 20;
-      node.y = Math.random() * 20;
+      // node.x = Math.random() * 20;
+      // node.y = Math.random() * 20;
       node.size = 10;
       node.color = '#008cc2';
       node.type = 'image';
@@ -55,18 +55,19 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
     data.edges.forEach((edge: any) => {
       graph.addEdge(edge.source, edge.target, {...edge});
     });
-    this.fa2 = new FA2LayoutSupervisor(graph, {
-      settings: {
-        linLogMode: true,
-        outboundAttractionDistribution: true,
-        adjustSizes: true,
-        gravity: 1,
-        slowDown: 1 + Math.log(graph.order) / 10,
-        barnesHutOptimize: true,
-        barnesHutTheta: 0.6,
-      },
-    });
-    this.fa2.start();
+    // FIXME: refactor fa2
+    // this.fa2 = new FA2LayoutSupervisor(graph, {
+    //   settings: {
+    //     linLogMode: true,
+    //     outboundAttractionDistribution: true,
+    //     adjustSizes: true,
+    //     gravity: 1,
+    //     slowDown: 1 + Math.log(graph.order) / 10,
+    //     barnesHutOptimize: true,
+    //     barnesHutTheta: 0.6,
+    //   },
+    // });
+    // this.fa2.start();
     if (this.network) {
       this.sigma = new Sigma(graph, this.network.nativeElement, {
         nodeProgramClasses: {

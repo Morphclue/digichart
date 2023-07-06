@@ -32,32 +32,34 @@ export class AppService {
   private async bfs(digimonList: Digimon[], root: Digimon) {
     const nodes: SigmaNode[] = [];
     const edges: SigmaEdge[] = [];
-    let edgeId = 4200;
+    let edgeId: number = 4200;
     const visited: Set<string> = new Set<string>();
-    const queue: string[] = [];
+    const queue: QueueNode[] = [];
     visited.add(root.name);
-    queue.push(root.name);
+    queue.push({name: root.name, parentX: 0, parentY: 0});
 
     while (queue.length > 0) {
-      const currentName = queue.shift();
-      const current = digimonList.find(digimon => digimon.name === currentName);
+      const q = queue.shift();
+      const current = digimonList.find(digimon => digimon.name === q.name);
       if (!current) {
-        this.logger.warn(`Digimon with id ${currentName} not found`);
+        this.logger.warn(`Digimon with id ${q} not found`);
         continue;
       }
-      nodes.push({id: current.name, label: current.name, href: current.href});
+      // FIXME: correct calculation of x needed
+      const x = q.parentX / 2 - current.nextEvolutions.length;
+      const y = q.parentY - 1;
+
+      nodes.push({id: current.name, label: current.name, href: current.href, x: x, y: y});
       current.nextEvolutions.forEach((nextName: string) => {
         if (!visited.has(nextName)) {
           const next = digimonList.find(digimon => digimon.name === nextName);
-          if(next === undefined) {
-            console.log(`Digimon ${nextName} not found`);
+          if (next === undefined) {
+            this.logger.warn(`Digimon ${nextName} not found`);
             return;
           }
-          if (next.priorEvolutions.includes(currentName)) {
-            visited.add(nextName);
-            queue.push(nextName);
-            edges.push({id: edgeId, source: current.name, target: nextName});
-          }
+          visited.add(nextName);
+          queue.push({name: nextName, parentX: x, parentY: y});
+          edges.push({id: edgeId, source: current.name, target: nextName});
         }
       });
     }
