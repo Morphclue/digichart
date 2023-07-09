@@ -1,8 +1,8 @@
 import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 
+import {Digimon} from '@digichart/types';
 import {AppService} from './app.service';
 import {DigimonDto} from './dto/digimon.dto';
-import {Digimon} from './schema/digimon.schema';
 
 @Controller('')
 export class AppController {
