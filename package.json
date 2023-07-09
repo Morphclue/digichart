@@ -2,7 +2,9 @@
   "name": "@digichart/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "serve:frontend": "nx serve frontend"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.1.3",
