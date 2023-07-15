@@ -6,8 +6,8 @@ $spanish-orange: #e36414ff;
 $midnight-green: #0f4c5cff;
 
 /* Overrides */
-$primary: $ut-orange;
-$secondary: $spanish-orange;
+$primary: $spanish-orange;
+$secondary: $ut-orange;
 
 /* Imports */
 @import 'node_modules/bootstrap/scss/bootstrap';
