@@ -30,11 +30,12 @@ export class AppService {
   }
 
   private async bfs(digimonList: Digimon[], root: Digimon) {
+    const ySpread = 15;
     const nodes: SigmaNode[] = [];
     const edges: SigmaEdge[] = [];
-    let edgeId: number = 4200;
     const visited: Set<string> = new Set<string>();
     const queue: QueueNode[] = [];
+    let edgeId: number = 4200;
     visited.add(root.name);
     queue.push({name: root.name, parentX: 0, parentY: 0});
 
@@ -46,8 +47,8 @@ export class AppService {
         continue;
       }
       // FIXME: correct calculation of x needed
-      const x = q.parentX / 2 - current.nextEvolutions.length;
-      const y = q.parentY - 1;
+      const x = q.parentX / 2 - current.nextEvolutions.length * 2;
+      const y = q.parentY - ySpread;
 
       nodes.push({id: current.name, label: current.name, href: current.href, x: x, y: y});
       current.nextEvolutions.forEach((nextName: string) => {
