@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -12,6 +13,7 @@ import {CoreModule} from './core/core.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     CoreModule,
   ],
   providers: [],

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
 
 import {NavbarComponent} from './navbar/navbar.component';
 
@@ -9,6 +10,7 @@ import {NavbarComponent} from './navbar/navbar.component';
   ],
   imports: [
     CommonModule,
+    NgbCollapse,
   ],
   exports: [
     NavbarComponent,

@@ -1,1 +1,19 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand text-light" href="/editor">
+      <h1>Digichart</h1>
+    </a>
+    <button class="navbar-toggler" type="button" (click)="menuCollapsed = !menuCollapsed">
+      <i class="bi-list icon"></i>
+    </button>
+    <div [ngbCollapse]="menuCollapsed" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/Morphclue/digichart" target="_blank">
+            <i class="bi-github icon" title="GitHub"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
