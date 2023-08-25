@@ -33,15 +33,15 @@ export class AppService {
     const ySpread = 15;
     const nodes: SigmaNode[] = [];
     const edges: SigmaEdge[] = [];
-    const visited: Set<string> = new Set<string>();
+    const visited: Set<number> = new Set<number>();
     const queue: QueueNode[] = [];
-    let edgeId: number = 4200;
-    visited.add(root.name);
-    queue.push({name: root.name, parentX: 0, parentY: 0});
+    let edgeId: number = 421337;
+    visited.add(root.id);
+    queue.push({id: root.id, parentX: 0, parentY: 0});
 
     while (queue.length > 0) {
       const q = queue.shift();
-      const current = digimonList.find(digimon => digimon.name === q.name);
+      const current = digimonList.find(digimon => digimon.id === q.id);
       if (!current) {
         this.logger.warn(`Digimon with id ${q} not found`);
         continue;
@@ -50,17 +50,17 @@ export class AppService {
       const x = q.parentX / 2 - current.nextEvolutions.length * 2;
       const y = q.parentY - ySpread;
 
-      nodes.push({id: current.name, label: current.name, href: current.href, x: x, y: y});
-      current.nextEvolutions.forEach((nextName: string) => {
-        if (!visited.has(nextName)) {
-          const next = digimonList.find(digimon => digimon.name === nextName);
+      nodes.push({id: current.id, label: current.name, href: current.href, x: x, y: y});
+      current.nextEvolutions.forEach((nextId: number) => {
+        if (!visited.has(nextId)) {
+          const next = digimonList.find(digimon => digimon.id === nextId);
           if (next === undefined) {
-            this.logger.warn(`Digimon ${nextName} not found`);
+            this.logger.warn(`Digimon ${nextId} not found`);
             return;
           }
-          visited.add(nextName);
-          queue.push({name: nextName, parentX: x, parentY: y});
-          edges.push({id: edgeId, source: current.name, target: nextName});
+          visited.add(nextId);
+          queue.push({id: nextId, parentX: x, parentY: y});
+          edges.push({id: edgeId, source: current.id, target: nextId});
         }
       });
     }

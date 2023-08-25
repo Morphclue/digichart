@@ -1,5 +1,5 @@
 interface SigmaNode {
-  id: string;
+  id: number;
   label: string;
   href: string;
   x?: number;
@@ -8,12 +8,12 @@ interface SigmaNode {
 
 interface SigmaEdge {
   id: number;
-  source: string;
-  target: string;
+  source: number;
+  target: number;
 }
 
 interface QueueNode {
-  name: string;
+  id: number;
   parentX: number;
   parentY: number;
 }

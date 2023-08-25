@@ -1,15 +1,18 @@
-import {IsString} from 'class-validator';
+import {IsNumber, IsString} from 'class-validator';
 
 export class DigimonDto {
+  @IsNumber()
+  id: number;
+
   @IsString()
   name: string;
 
   @IsString()
   href: string;
 
-  @IsString({each: true})
-  priorEvolutions: string[];
+  @IsNumber({}, {each: true})
+  priorEvolutions: number[];
 
-  @IsString({each: true})
-  nextEvolutions: string[];
+  @IsNumber({}, {each: true})
+  nextEvolutions: number[];
 }
