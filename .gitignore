@@ -41,3 +41,4 @@ Thumbs.db
 .angular
 .idea
 .pnpm-debug.log
+.nx
