@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 
 import {CoreModule} from '../core/core.module';
 import {EditorComponent} from './editor/editor.component';
@@ -15,8 +15,10 @@ import {NetworkComponent} from './network/network.component';
   imports: [
     CommonModule,
     EditorRoutingModule,
-    HttpClientModule,
     CoreModule,
+  ],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 })
 export class EditorModule {
