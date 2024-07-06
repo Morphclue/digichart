@@ -190,6 +190,9 @@ importers:
       '@types/node':
         specifier: 18.16.9
         version: 18.16.9
+      '@types/sigmajs':
+        specifier: ^1.0.32
+        version: 1.0.32
       '@types/supertest':
         specifier: ^2.0.16
         version: 2.0.16
@@ -2618,6 +2621,9 @@ packages:
 
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
+
+  '@types/sigmajs@1.0.32':
+    resolution: {integrity: sha512-Yskcs1NanEZtinTjZBh8I2jquP1Raz/wJX4961PxYB+T66sUDhtZQKhSSv+BCNRuwYCinZ8W3n05FNb7V5lbPw==}
 
   '@types/sinonjs__fake-timers@8.1.1':
     resolution: {integrity: sha512-0kSuKjAS0TrGLJ0M/+8MaFkGsQhZpB6pxOmvS3K8FYI72K//YmdfoW9X2qPsAKh1mkwxGD5zib9s1FIFed6E8g==}
@@ -11468,6 +11474,8 @@ snapshots:
       '@types/http-errors': 2.0.4
       '@types/node': 18.16.9
       '@types/send': 0.17.4
+
+  '@types/sigmajs@1.0.32': {}
 
   '@types/sinonjs__fake-timers@8.1.1': {}
 
