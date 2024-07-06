@@ -1,0 +1,12 @@
+version: '3'
+services:
+  database:
+    image: mongo
+    container_name: digimon-database
+    ports:
+      - "27017:27017"
+    volumes:
+      - database:/data/db
+
+volumes:
+  database:
