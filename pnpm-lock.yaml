@@ -60,6 +60,9 @@ importers:
       '@ng-bootstrap/ng-bootstrap':
         specifier: ^15.1.2
         version: 15.1.2(@angular/common@18.0.4(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4))(rxjs@7.8.1))(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4))(@angular/forms@18.0.4(@angular/common@18.0.4(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4))(rxjs@7.8.1))(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4))(@angular/platform-browser@18.0.4(@angular/animations@18.0.4(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4)))(@angular/common@18.0.4(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4))(rxjs@7.8.1))(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4)))(rxjs@7.8.1))(@angular/localize@18.0.4(@angular/compiler-cli@18.0.4(@angular/compiler@18.0.4(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4)))(typescript@5.4.5))(@angular/compiler@18.0.4(@angular/core@18.0.4(rxjs@7.8.1)(zone.js@0.14.4))))(@popperjs/core@2.11.8)(rxjs@7.8.1)
+      '@sigma/node-image':
+        specifier: 3.0.0-beta.12
+        version: 3.0.0-beta.12(sigma@3.0.0-beta.17(graphology-types@0.24.7))
       axios:
         specifier: 1.6.0
         version: 1.6.0
@@ -2437,6 +2440,11 @@ packages:
   '@schematics/angular@18.0.5':
     resolution: {integrity: sha512-dV50GIEGl6S5wE6xtAhmHWdLhsOlnNUpAx/v3BPR2AOr90zJvIM03TqAQTzAlnPatxK2WLelRgqVMbPfAVvLAg==}
     engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
+
+  '@sigma/node-image@3.0.0-beta.12':
+    resolution: {integrity: sha512-l7Qe6qylooj6eLKmFQB9NzYe1t7WRrfinK9kvYHc41xmQNorJJqrWQFIltUDUaBPdE68u6mrVa5kK3LNa6iGcA==}
+    peerDependencies:
+      sigma: '>=3.0.0-beta.10'
 
   '@sigstore/bundle@2.3.1':
     resolution: {integrity: sha512-eqV17lO3EIFqCWK3969Rz+J8MYrRZKw9IBHpSo6DEcEX2c+uzDFOgHE9f2MnyDpfs48LFO4hXmk9KhQ74JzU1g==}
@@ -11266,6 +11274,10 @@ snapshots:
       jsonc-parser: 3.2.1
     transitivePeerDependencies:
       - chokidar
+
+  '@sigma/node-image@3.0.0-beta.12(sigma@3.0.0-beta.17(graphology-types@0.24.7))':
+    dependencies:
+      sigma: 3.0.0-beta.17(graphology-types@0.24.7)
 
   '@sigstore/bundle@2.3.1':
     dependencies:

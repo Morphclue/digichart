@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import Graph from 'graphology';
 import {Sigma} from 'sigma';
 import FA2LayoutSupervisor from "graphology-layout-forceatlas2/worker";
-import getNodeImageProgram from 'sigma/rendering/webgl/programs/node.image';
+import {NodeImageProgram} from '@sigma/node-image';
 
 @Component({
   selector: 'app-network',
@@ -20,7 +20,7 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.http.get<any>(`http://localhost:3000/api/v1/Tyranomon`).subscribe(
+    this.http.get<any>(`http://localhost:3000/api/v1/Greymon`).subscribe(
       (data) => {
         this.transformData(data);
         this.drawGraph(data);
@@ -71,7 +71,7 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
     if (this.network) {
       this.sigma = new Sigma(graph, this.network.nativeElement, {
         nodeProgramClasses: {
-          image: getNodeImageProgram(),
+          image: NodeImageProgram,
         },
       });
       this.sigma.refresh();
