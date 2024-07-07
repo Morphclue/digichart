@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-
-import Graph from 'graphology';
-import {Sigma} from 'sigma';
-import FA2LayoutSupervisor from "graphology-layout-forceatlas2/worker";
+import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {NodeImageProgram} from '@sigma/node-image';
+import Graph from 'graphology';
+import FA2LayoutSupervisor from 'graphology-layout-forceatlas2/worker';
+import {Sigma} from 'sigma';
 
 @Component({
   selector: 'app-network',
@@ -20,7 +19,7 @@ export class NetworkComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.http.get<any>(`http://localhost:3000/api/v1/Greymon`).subscribe(
+    this.http.get<any>('http://localhost:3000/api/v1/Greymon').subscribe(
       (data) => {
         this.transformData(data);
         this.drawGraph(data);
