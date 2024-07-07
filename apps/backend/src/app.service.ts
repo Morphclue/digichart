@@ -1,9 +1,9 @@
+import {Digimon} from '@digichart/types';
 import {Injectable, Logger} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 
 import {DigimonDto} from './dto/digimon.dto';
-import {Digimon} from '@digichart/types';
 
 @Injectable()
 export class AppService {
@@ -35,7 +35,7 @@ export class AppService {
     const edges: SigmaEdge[] = [];
     const visited: Set<number> = new Set<number>();
     const queue: QueueNode[] = [];
-    let edgeId: number = 421337;
+    const edgeId: number = 421337;
     visited.add(root.id);
     queue.push({id: root.id, parentX: 0, parentY: 0});
 
